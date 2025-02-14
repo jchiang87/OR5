@@ -16,7 +16,7 @@ cluster:
 payload:
   weekly: ${WEEKLY}
   inCollection: %(tagged_collection)s,2.2i/calib,skymaps,refcats,pretrained_models
-  payloadName: OR5/WFD/day1/DM-48585/step1/isr_detector/{weekly}/%(group)s
+  payloadName: OR5/WFD/day1/step1/isr_detector/{weekly}/%(group)s
   butlerConfig: embargo_or5
   dataQuery: "instrument='LSSTCam-imSim' and %(exposure_selection)s"
 """

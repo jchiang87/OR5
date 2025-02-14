@@ -7,9 +7,9 @@ retryUnlessExit: [2]
 numberOfRetries: 2
 
 payload:
-  inCollection: u/jchiang/DRP/OR5/WFD/day1/DM-48585/step2
-  payloadName: DRP/OR5/WFD/day1/DM-48585/step3/group%(group)02d
-  butlerConfig: /repo/dc2
+  inCollection: u/jchiang/DRP/OR5/WFD/day1/step2
+  payloadName: DRP/OR5/WFD/day1/step3/group%(group)02d
+  butlerConfig: embargo_or5
   dataQuery: "instrument='LSSTCam-imSim' and skymap='DC2_cells_v1' and tract in (%(tract_list)s)"
 """
 
