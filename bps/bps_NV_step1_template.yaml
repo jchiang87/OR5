@@ -1,0 +1,33 @@
+pipelineYaml: ${OR5_DIR}/pipelines/DRP.yaml#step1
+
+retryUnlessExit: [2]
+numberOfRetries: 2
+
+environment:
+   DAF_BUTLER_CACHE_DIRECTORY: /lscratch/${USER}
+   DAF_BUTLER_CACHE_EXPIRATION_MODE: size=1_000_000_000_000
+   LSST_S3_USE_THREADS: False
+   AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+
+clusterAlgorithm: lsst.ctrl.bps.quantum_clustering_funcs.dimension_clustering
+cluster:
+  isr_detector:
+    pipetasks: isr
+    dimensions: detector
+  analyzeAmpOffsetMetadata_detector:
+    pipetasks: analyzeAmpOffsetMetadata
+    dimensions: detector
+  calibrateImage_detector:
+    pipetasks: calibrateImage
+    dimensions: detector
+  transformSourceTable_detector:
+    pipetasks: transformSourceTable
+    dimensions: detector
+
+payload:
+  runInit: true
+  payloadName: OR5_WFD_nightlyValidation
+  inCollection: %(tagged_collection)s,2.2i/calib,skymaps,refcats,pretrained_models
+  output: LSSTCam-imSim/OR5/runs/nightlyValidation_%(day)s/%(version)s/%(ticket)s/%(group)s
+  butlerConfig: %(repo)s
+  dataQuery: "instrument='LSSTCam-imSim' and %(exposure_selection)s"

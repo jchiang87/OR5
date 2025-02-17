@@ -1,27 +1,33 @@
+import os
 import numpy as np
-import pandas as pd
+import lsst.utils as utils
+from or5.or5_tracts import or5_wfd_tracts
 
-step3_template = """pipelineYaml: ${OR5_DIR}/pipelines/DRP.yaml#step3
+PACKAGE_DIR = utils.getPackageDir("or5")
 
-retryUnlessExit: [2]
-numberOfRetries: 2
+step = "step3"
+day = "day1"
+version = "w_2025_07"
+ticket = "DM-xxxxx"
+repo = "embargo_or5"
+tagged_collection = f"2.2i/raw/OR5/WFD/{day}/DM-48585"
+ngroups = 10
 
-payload:
-  inCollection: u/jchiang/DRP/OR5/WFD/day1/step2
-  payloadName: DRP/OR5/WFD/day1/step3/group%(group)02d
-  butlerConfig: embargo_or5
-  dataQuery: "instrument='LSSTCam-imSim' and skymap='DC2_cells_v1' and tract in (%(tract_list)s)"
-"""
+bps_config_dir = "./bps_configs_test"
+os.makedirs(bps_config_dir, exist_ok=True)
 
-# get tracts from empirical data frame
-df = pd.read_parquet("OR5_WFD_day1_ccd_coords.parquet")
-tracts = sorted(set(df['tract']))
+template_file = os.path.join(PACKAGE_DIR, "bps",
+                             f"bps_NV_{step}_template.yaml")
+with open(template_file) as fobj:
+    bps_template = "".join(fobj.readlines())
 
-# divide into 10 groups
-indices = np.linspace(0, len(tracts)+1, 11, dtype=int)
+# Divide into groups.
+indices = np.linspace(0, len(or5_wfd_tracts) + 1, ngroups + 1, dtype=int)
 
-for group, (imin, imax) in enumerate(zip(indices[:-1], indices[1:])):
-    tract_list = ",".join([str(_) for _ in tracts[imin:imax]])
-    outfile = f"bps_DRP_step3_group_{group:02d}.yaml"
-    with open(outfile, 'w') as fobj:
-        fobj.write(step3_template % locals())
+for igroup, (imin, imax) in enumerate(zip(indices[:-1], indices[1:])):
+    group = f"{igroup:02d}"
+    tract_list = ",".join([str(_) for _ in or5_wfd_tracts[imin:imax]])
+    bps_yaml = os.path.join(bps_config_dir,
+                            f"bps_NV_{step}_{day}_{group}.yaml")
+    with open(bps_yaml, "w") as fobj:
+        fobj.write(bps_template % locals())
