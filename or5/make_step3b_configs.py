@@ -8,7 +8,7 @@ from bps_config_params import (bps_config_dir, folder, payload_name,
 
 PACKAGE_DIR = utils.getPackageDir("or5")
 
-step = "step4"
+step = "step3b"
 
 os.makedirs(bps_config_dir, exist_ok=True)
 

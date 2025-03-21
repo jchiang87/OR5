@@ -1,0 +1,22 @@
+includeConfigs:
+  - ${DRP_PIPE_DIR}/bps/clustering/LSSTCam-imSim/DRP-OR5-clustering.yaml
+  - ${DRP_PIPE_DIR}/bps/resources/LSSTCam-imSim/nightly-validation-OR5-DDF.yaml
+
+pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml#step6"
+
+numberOfRetries: 2
+
+environment:
+   DAF_BUTLER_CACHE_EXPIRATION_MODE: disabled
+   LSST_S3_USE_THREADS: False
+   AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+
+extraQgraphOptions: "-c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z"
+
+extraRunQuantumOptions: "--no-raise-on-partial-outputs"
+
+payload:
+  payloadName: %(payload_name)s
+  output: %(output_area)s/%(folder)s/%(lsst_version)s/%(ticket)s
+  butlerConfig: %(repo)s
+  dataQuery: "instrument='LSSTCam-imSim'"
