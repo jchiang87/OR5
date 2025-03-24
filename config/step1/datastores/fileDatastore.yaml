@@ -18,22 +18,18 @@ datastore:
       # - age (threshold is oldest file in seconds)
       # Default for everyone is to limit the cache size to 4 datasets.
       mode: datasets
-      threshold: 500
+      threshold: 1000
     # Default cache value. This will be the default decision if no specific
     # match is found in the "cacheable" section later on.
     default: false
     # Use a dict over list to simplify merging logic.
     cacheable:
-      # isr
-      raw: true
+      # Disable generic storage classes
+      Exposure: false
+      ExposureF: false
+      # isr cacheables
       bias: true
       dark: true
       flat: true
       bfk: true
       crosstalk: true
-      # makeDirectWarp
-      calexp: true
-      finalVisitSummary: true
-      # assembleCoadd
-      deepCoadd_directWarp: true
-      deepCoadd_psfMatchedWarp: true
