@@ -1,6 +1,6 @@
 includeConfigs:
   - ${DRP_PIPE_DIR}/bps/clustering/LSSTCam-imSim/DRP-OR5-clustering.yaml
-  - ${DRP_PIPE_DIR}/bps/resources/LSSTCam-imSim/nightly-validation-OR5-DDF.yaml
+  - ${DRP_PIPE_DIR}/bps/resources/LSSTCam-imSim/nightly-validation-OR5-%(survey)s.yaml
 
 pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml#step1"
 

@@ -17,9 +17,7 @@ output_area="u/jchiang/OR5/runs"
 tract_lists, patch_lists = None, None
 
 ## WFD
-#tagged_collection = "2.2i/raw/OR5/WFD/day1/DM-48585"
-#folder = "NV_WFD_day1"
-
+#survey = "WFD"
 ## Tracts and patches for step3[a,b]
 #ngroups = 10
 #indices = np.linspace(0, len(or5_wfd_tracts) + 1, ngroups + 1, dtype=int)
@@ -29,12 +27,12 @@ tract_lists, patch_lists = None, None
 
 
 # DDF
-tagged_collection = "2.2i/raw/OR5/DDF/day1/DM-48585"
-folder = "NV_DDF_day1"
-
+survey = "DDF"
 ## Tracts and patches for step3[a,b]
 #tract_lists = [str(_) for _ in or5_ddf_tracts]
 #patch_lists = ["..".join([str(_) for _ in prange]) for prange in
 #               zip((0, 19, 39, 59, 79), (19, 39, 59, 79, 99))]
 
+tagged_collection = f"2.2i/raw/OR5/{survey}/day1/DM-48585"
+folder = f"NV_{survey}_day1"
 payload_name = f"OR5_{folder}"

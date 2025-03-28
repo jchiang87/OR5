@@ -2,7 +2,7 @@ import os
 import numpy as np
 import lsst.daf.butler as daf_butler
 import lsst.utils as utils
-from bps_config_params import (bps_config_dir, folder, payload_name,
+from bps_config_params import (bps_config_dir, folder, payload_name, survey,
                                sasq_timestamp, tagged_collection, lsst_version,
                                ticket, repo, cache_config_path, output_area)
 
