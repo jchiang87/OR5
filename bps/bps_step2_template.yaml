@@ -4,12 +4,9 @@ includeConfigs:
 
 pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml#step2"
 
-numberOfRetries: 2
-
 environment:
-   DAF_BUTLER_CACHE_EXPIRATION_MODE: disabled
-   LSST_S3_USE_THREADS: False
-   AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+  DAF_BUTLER_CACHE_EXPIRATION_MODE: disabled
+  LSST_S3_USE_THREADS: False
 
 extraQgraphOptions: -c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z
 
@@ -19,4 +16,4 @@ payload:
   payloadName: %(payload_name)s
   output: %(output_area)s/%(folder)s/%(lsst_version)s/%(ticket)s
   butlerConfig: %(repo)s
-  dataQuery: "instrument='LSSTCam-imSim' and skymap='DC2_cells_v1'"
+  dataQuery: "instrument='LSSTCam-imSim' and skymap='lsst_cells_v1'"

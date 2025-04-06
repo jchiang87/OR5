@@ -4,14 +4,11 @@ includeConfigs:
 
 pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml#step1"
 
-numberOfRetries: 2
-
 environment:
-   DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s:${DAF_BUTLER_CONFIG_PATH}
-   DAF_BUTLER_CACHE_DIRECTORY: /lscratch/${USER}/step1_cache
-   DAF_BUTLER_CACHE_EXPIRATION_MODE: datasets=1000
-   LSST_S3_USE_THREADS: False
-   AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+  DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s/step1:${DAF_BUTLER_CONFIG_PATH}
+  DAF_BUTLER_CACHE_EXPIRATION_MODE: datasets=1000
+  DAF_BUTLER_CACHE_DIRECTORY: /lscratch/${USER}/step1_cache
+  LSST_S3_USE_THREADS: False
 
 extraQgraphOptions: -c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z
 
