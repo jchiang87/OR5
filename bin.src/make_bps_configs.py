@@ -17,7 +17,12 @@ template_file = os.path.join(PACKAGE_DIR, "bps",
 with open(template_file) as fobj:
     bps_template = "".join(fobj.readlines())
 
-bps_yaml = os.path.join(bps_config_dir,
-                        f"bps_{step}_{payload_name}.yaml")
+if step == "all":
+    bps_yaml = os.path.join(bps_config_dir,
+                            f"bps_{payload_name}.yaml")
+else:
+    bps_yaml = os.path.join(bps_config_dir,
+                            f"bps_{step}_{payload_name}.yaml")
+
 with open(bps_yaml, "w") as fobj:
     fobj.write(bps_template % locals())
