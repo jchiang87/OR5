@@ -5,7 +5,7 @@ includeConfigs:
 pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml#step2,step3,step7"
 
 environment:
-  DAF_BUTLER_CONFIG_PATH: $(cache_config_path)s/step3:${DAF_BUTLER_CONFIG_PATH}
+  DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s/step3:${DAF_BUTLER_CONFIG_PATH}
   DAF_BUTLER_CACHE_EXPIRATION_MODE: disabled
   LSST_S3_USE_THREADS: False
 
