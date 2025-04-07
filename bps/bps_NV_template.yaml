@@ -1,0 +1,35 @@
+includeConfigs:
+  - ${DRP_PIPE_DIR}/bps/clustering/LSSTCam-imSim/DRP-OR5-clustering.yaml
+  - ${DRP_PIPE_DIR}/bps/resources/LSSTCam-imSim/nightly-validation-OR5-DDF.yaml
+
+pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml"
+
+environment:
+  DAF_BUTLER_CACHE_EXPIRATION_MODE: disabled
+  LSST_S3_USE_THREADS: False
+
+cluster:
+  step1detector:
+    environment:
+      DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s/step1:${DAF_BUTLER_CONFIG_PATH}
+      DAF_BUTLER_CACHE_EXPIRATION_MODE: datasets=1000
+      DAF_BUTLER_CACHE_DIRECTORY: /lscratch/${USER}/step1_cache
+  makeWarpTract:
+    environment:
+      DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s/step3:${DAF_BUTLER_CONFIG_PATH}
+      DAF_BUTLER_CACHE_EXPIRATION_MODE: datasets=500
+  coadd:
+    environment:
+      DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s/step3:${DAF_BUTLER_CONFIG_PATH}
+      DAF_BUTLER_CACHE_EXPIRATION_MODE: datasets=500
+
+extraQgraphOptions: "--dataset-query-constraint finalVisitSummary -c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z"
+
+extraRunQuantumOptions: "--no-raise-on-partial-outputs"
+
+payload:
+  payloadName: %(payload_name)s
+  inCollection: %(tagged_collection)s,2.2i/calib,skymaps,refcats,pretrained_models
+  output: %(output_area)s/%(folder)s/%(lsst_version)s/%(ticket)s
+  butlerConfig: %(repo)s
+  dataQuery: "instrument='LSSTCam-imSim' and skymap='lsst_cells_v1'"
