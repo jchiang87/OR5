@@ -17,7 +17,7 @@ cluster:
     partitionDimensions: exposure
     partitionMaxClusters: 10000
 
-extraQgraphOptions: -c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z
+extraQgraphOptions: "-c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z"
 
 extraRunQuantumOptions: "--no-raise-on-partial-outputs"
 
