@@ -6,9 +6,16 @@ pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml#s
 
 environment:
   DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s/step1:${DAF_BUTLER_CONFIG_PATH}
-  DAF_BUTLER_CACHE_EXPIRATION_MODE: datasets=1000
+  DAF_BUTLER_CACHE_EXPIRATION_MODE: size=1_000_000_000_000
   DAF_BUTLER_CACHE_DIRECTORY: /lscratch/${USER}/step1_cache
   LSST_S3_USE_THREADS: False
+
+subDirTemplate: "{label}/{detector}"
+cluster:
+  step1detector:
+    equalDimensions: exposure:visit
+    partitionDimensions: exposure
+    partitionMaxClusters: 10000
 
 extraQgraphOptions: -c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z
 
