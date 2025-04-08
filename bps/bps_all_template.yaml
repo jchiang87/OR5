@@ -28,7 +28,7 @@ cluster:
       DAF_BUTLER_CONFIG_PATH: %(cache_config_path)s/step3:${DAF_BUTLER_CONFIG_PATH}
       DAF_BUTLER_CACHE_EXPIRATION_MODE: datasets=500
 
-extraQgraphOptions: "--dataset-query-constraint finalVisitSummary -c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z"
+extraQgraphOptions: "-c parameters:sasquatch_dataset_identifier=%(payload_name)s -c parameters:sasquatch_timestamp_version=explicit_timestamp:%(sasq_timestamp)sT000000Z"
 
 extraRunQuantumOptions: "--no-raise-on-partial-outputs"
 
