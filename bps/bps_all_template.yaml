@@ -5,8 +5,10 @@ includeConfigs:
 pipelineYaml: "${DRP_PIPE_DIR}/pipelines/LSSTCam-imSim/nightly-validation.yaml"
 
 environment:
-  DAF_BUTLER_CACHE_EXPIRATION_MODE: disabled
   LSST_S3_USE_THREADS: False
+  DAF_BUTLER_CACHE_EXPIRATION_MODE: disabled
+
+subDirTemplate: "{label}/{detector}"
 
 cluster:
   step1detector:
